@@ -2,6 +2,7 @@ package com.example.layout.flights;
 
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,12 @@ public class FlightsController implements FlightService<Integer, FlightsDto> {
     @PutMapping("/update/{id}")
     public ApiResponse<FlightsDto> update(@RequestBody FlightsDto dto, @PathVariable(value = "id") Integer id) {
         return this.flightsServiceImpl.update(dto, id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<FlightsDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.flightsServiceImpl.getPage(page, count);
     }
 
     @Override

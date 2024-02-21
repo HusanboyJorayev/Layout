@@ -2,6 +2,7 @@ package com.example.layout.no_fly_list;
 
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,11 @@ public class NoFlyListController implements NoFlyListService<Integer, NoFlyListD
     @PutMapping("/update/{id}")
     public ApiResponse<NoFlyListDto> update(@RequestBody NoFlyListDto dto, @PathVariable(value = "id") Integer id) {
         return this.noFlyListServiceImpl.update(dto, id);
+    }
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<NoFlyListDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.noFlyListServiceImpl.getPage(page, count);
     }
 
     @Override

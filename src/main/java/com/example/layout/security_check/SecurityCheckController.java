@@ -2,6 +2,7 @@ package com.example.layout.security_check;
 
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,12 @@ public class SecurityCheckController implements SecurityCheckService<Integer, Se
     @PutMapping("/update/{id}")
     public ApiResponse<SecurityCheckDto> update(@RequestBody SecurityCheckDto dto, @PathVariable(value = "id") Integer id) {
         return this.securityCheckServiceImpl.update(dto, id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<SecurityCheckDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.securityCheckServiceImpl.getPage(page, count);
     }
 
     @Override

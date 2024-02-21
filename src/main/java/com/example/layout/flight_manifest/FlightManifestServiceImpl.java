@@ -1,8 +1,11 @@
 package com.example.layout.flight_manifest;
 
+import com.example.layout.booking.Booking;
 import com.example.layout.booking.BookingDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -58,7 +61,21 @@ public class FlightManifestServiceImpl implements FlightManifestService<Integer,
                         .message("flightManifest is not found")
                         .build());
     }
-
+    @Override
+    public ApiResponse<Page<FlightManifestDto>> getPage(Integer page, Integer count) {
+        Page<FlightManifest> airlinePage = this.flightManifestRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<FlightManifestDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<FlightManifestDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.flightManifestMapper::toDto))
+                .build();
+    }
     @Override
     public ApiResponse<FlightManifestDto> update(FlightManifestDto flightManifestDto, Integer id) {
         return this.flightManifestRepository.findByIdAndDeletedAtIsNull(id)

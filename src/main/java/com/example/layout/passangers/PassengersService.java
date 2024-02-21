@@ -1,6 +1,7 @@
 package com.example.layout.passangers;
 
 import com.example.layout.dto.ApiResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface PassengersService<Integer, PassengersDto> {
     ApiResponse<PassengersDto> get(Integer id);
 
     ApiResponse<PassengersDto> delete(Integer id);
+    ApiResponse<Page<PassengersDto>>getPage(Integer page, Integer count);
+
 
     ApiResponse<PassengersDto> update(PassengersDto dto, Integer id);
 

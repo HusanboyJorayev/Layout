@@ -1,7 +1,11 @@
 package com.example.layout.no_fly_list;
 
 import com.example.layout.dto.ApiResponse;
+import com.example.layout.flights.Flights;
+import com.example.layout.flights.FlightsDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -58,6 +62,21 @@ public class NoFlyListServiceImpl implements NoFlyListService<Integer, NoFlyList
                         .build());
     }
 
+    @Override
+    public ApiResponse<Page<NoFlyListDto>> getPage(Integer page, Integer count) {
+        Page<NoFlyList> airlinePage = this.noFlyListRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<NoFlyListDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<NoFlyListDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.noFlyListMapper::toDto))
+                .build();
+    }
     @Override
     public ApiResponse<NoFlyListDto> update(NoFlyListDto noFlyListDto, Integer id) {
         return this.noFlyListRepository.findByIdAndDeletedAtIsNull(id)

@@ -1,7 +1,9 @@
 package com.example.layout.booking;
 
+import com.example.layout.boarding_pass.BoardingPassDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +36,12 @@ public class BookingController implements BookingService<Integer, BookingDto> {
     @PutMapping("/update/{id}")
     public ApiResponse<BookingDto> update(@RequestBody BookingDto dto, @PathVariable(value = "id") Integer id) {
         return this.bookingServiceImpl.update(dto, id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<BookingDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.bookingServiceImpl.getPage(page, count);
     }
 
     @Override

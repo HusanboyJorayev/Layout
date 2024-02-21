@@ -1,8 +1,10 @@
 package com.example.layout.flight_manifest;
 
 
+import com.example.layout.booking.BookingDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +37,12 @@ public class FlightManifestController implements FlightManifestService<Integer, 
     @PutMapping("/update/{id}")
     public ApiResponse<FlightManifestDto> update(@RequestBody FlightManifestDto dto, @PathVariable(value = "id") Integer id) {
         return this.flightManifestServiceImpl.update(dto, id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<FlightManifestDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.flightManifestServiceImpl.getPage(page, count);
     }
 
     @Override

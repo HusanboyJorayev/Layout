@@ -1,8 +1,11 @@
 package com.example.layout.booking;
 
+import com.example.layout.boarding_pass.BoardingPass;
 import com.example.layout.boarding_pass.BoardingPassDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -76,6 +79,22 @@ public class BookingServiceImpl implements BookingService<Integer, BookingDto> {
                         .code(-1)
                         .message("boarding is not found")
                         .build());
+    }
+
+    @Override
+    public ApiResponse<Page<BookingDto>> getPage(Integer page, Integer count) {
+        Page<Booking> airlinePage = this.bookingRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<BookingDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<BookingDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.bookingMapper::toDto))
+                .build();
     }
 
     @Override
