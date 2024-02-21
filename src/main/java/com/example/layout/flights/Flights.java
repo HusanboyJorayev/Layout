@@ -1,7 +1,6 @@
 package com.example.layout.flights;
 
 import com.example.layout.booking.Booking;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 
