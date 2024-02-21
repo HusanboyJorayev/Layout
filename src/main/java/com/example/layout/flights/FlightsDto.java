@@ -1,8 +1,11 @@
 package com.example.layout.flights;
 
+import com.example.layout.booking.Booking;
+import com.example.layout.booking.BookingDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +19,9 @@ public class FlightsDto {
     private Integer airlineId;
     private Integer departingAirportId;
     private Integer arrivingAirportId;
+
+    private List<BookingDto> booking;
+
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

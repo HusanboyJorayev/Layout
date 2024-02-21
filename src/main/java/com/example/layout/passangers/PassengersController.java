@@ -27,6 +27,18 @@ public class PassengersController implements PassengersService<Integer, Passenge
     }
 
     @Override
+    @GetMapping("/getWithBaggageCheck/{id}")
+    public ApiResponse<PassengersDto> getWithBaggageCheck(@PathVariable(value = "id") Integer id) {
+        return this.passengersServiceImpl.getWithBaggageCheck(id);
+    }
+
+    @Override
+    @GetMapping("/getWithBooking/{id}")
+    public ApiResponse<PassengersDto> getWithBooking(@PathVariable(value = "id") Integer id) {
+        return this.passengersServiceImpl.getWithBooking(id);
+    }
+
+    @Override
     @DeleteMapping("/delete/{id}")
     public ApiResponse<PassengersDto> delete(@PathVariable(value = "id") Integer id) {
         return this.passengersServiceImpl.delete(id);
@@ -37,6 +49,7 @@ public class PassengersController implements PassengersService<Integer, Passenge
     public ApiResponse<PassengersDto> update(@RequestBody PassengersDto dto, @PathVariable(value = "id") Integer id) {
         return this.passengersServiceImpl.update(dto, id);
     }
+
     @Override
     @GetMapping("/getPage/{p}/{c}")
     public ApiResponse<Page<PassengersDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {

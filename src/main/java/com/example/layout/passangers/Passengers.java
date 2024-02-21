@@ -1,11 +1,14 @@
 package com.example.layout.passangers;
 
+import com.example.layout.baggage_check.BaggageCheck;
+import com.example.layout.booking.Booking;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +27,12 @@ public class Passengers {
     private String countryOfCitizenShip;
     private String countryOfResidence;
     private String passportNumber;
+
+    @OneToMany(mappedBy = "passengerId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<BaggageCheck>baggageCheck;
+
+    @OneToMany(mappedBy = "passengerId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Booking>booking;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -46,6 +46,34 @@ public class PassengersServiceImpl implements PassengersService<Integer, Passeng
     }
 
     @Override
+    public ApiResponse<PassengersDto> getWithBaggageCheck(Integer id) {
+        return this.passengersRepository.findByIdAndDeletedAtIsNull(id)
+                .map(passengers -> ApiResponse.<PassengersDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.passengersMapper.toDtoWithBaggageCheck(passengers))
+                        .build())
+                .orElse(ApiResponse.<PassengersDto>builder()
+                        .code(-1)
+                        .message("flightManifest is not found")
+                        .build());
+    }
+
+    @Override
+    public ApiResponse<PassengersDto> getWithBooking(Integer id) {
+        return this.passengersRepository.findByIdAndDeletedAtIsNull(id)
+                .map(passengers -> ApiResponse.<PassengersDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.passengersMapper.toDtoWithBooking(passengers))
+                        .build())
+                .orElse(ApiResponse.<PassengersDto>builder()
+                        .code(-1)
+                        .message("flightManifest is not found")
+                        .build());
+    }
+
+    @Override
     public ApiResponse<PassengersDto> delete(Integer id) {
         return this.passengersRepository.findByIdAndDeletedAtIsNull(id)
                 .map(flights -> {

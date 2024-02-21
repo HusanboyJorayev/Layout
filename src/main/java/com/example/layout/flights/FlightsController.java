@@ -26,6 +26,12 @@ public class FlightsController implements FlightService<Integer, FlightsDto> {
     }
 
     @Override
+    @GetMapping("/getWithBooking/{id}")
+    public ApiResponse<FlightsDto> getWithBooking(@PathVariable(value = "id") Integer id) {
+        return this.flightsServiceImpl.getWithBooking(id);
+    }
+
+    @Override
     @DeleteMapping("/delete/{id}")
     public ApiResponse<FlightsDto> delete(@PathVariable(value = "id") Integer id) {
         return this.flightsServiceImpl.delete(id);

@@ -11,6 +11,9 @@ public interface BookingService<Integer,BookingDto> {
     ApiResponse<BookingDto> create(BookingDto dto);
 
     ApiResponse<BookingDto> get(Integer id);
+    ApiResponse<BookingDto> getWithBaggage(Integer id);
+    ApiResponse<BookingDto> getWithBaggageCheck(Integer id);
+    ApiResponse<BookingDto> getWithBoardingPass(Integer id);
 
     ApiResponse<BookingDto> delete(Integer id);
     ApiResponse<Page<BookingDto>>getPage(Integer page, Integer count);

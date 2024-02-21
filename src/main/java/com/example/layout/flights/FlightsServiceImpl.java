@@ -45,6 +45,20 @@ public class FlightsServiceImpl implements FlightService<Integer, FlightsDto> {
     }
 
     @Override
+    public ApiResponse<FlightsDto> getWithBooking(Integer id) {
+        return this.flightsRepository.findByIdAndDeletedAtIsNull(id)
+                .map(flights -> ApiResponse.<FlightsDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.flightsMapper.toDtoWithBooking(flights))
+                        .build())
+                .orElse(ApiResponse.<FlightsDto>builder()
+                        .code(-1)
+                        .message("flightManifest is not found")
+                        .build());
+    }
+
+    @Override
     public ApiResponse<FlightsDto> delete(Integer id) {
         return this.flightsRepository.findByIdAndDeletedAtIsNull(id)
                 .map(flights -> {
@@ -61,6 +75,7 @@ public class FlightsServiceImpl implements FlightService<Integer, FlightsDto> {
                         .message("flightManifest is not found")
                         .build());
     }
+
     @Override
     public ApiResponse<Page<FlightsDto>> getPage(Integer page, Integer count) {
         Page<Flights> airlinePage = this.flightsRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));

@@ -1,10 +1,14 @@
 package com.example.layout.booking;
 
+import com.example.layout.baggage.Baggage;
+import com.example.layout.baggage_check.BaggageCheck;
+import com.example.layout.boarding_pass.BoardingPass;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +25,15 @@ public class Booking {
     private Integer flightId;
     private Integer passengerId;
     private String platform;
+
+    @OneToMany(mappedBy = "bookingId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Baggage> baggage;
+
+    @OneToMany(mappedBy = "bookingId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<BaggageCheck> baggageCheck;
+
+    @OneToMany(mappedBy = "bookingId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<BoardingPass> boardingPass;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -1,8 +1,13 @@
 package com.example.layout.passangers;
 
+import com.example.layout.baggage_check.BaggageCheck;
+import com.example.layout.baggage_check.BaggageCheckDto;
+import com.example.layout.booking.Booking;
+import com.example.layout.booking.BookingDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +22,9 @@ public class PassengersDto {
     private String countryOfCitizenShip;
     private String countryOfResidence;
     private String passportNumber;
+
+    private List<BaggageCheckDto> baggageCheck;
+    private List<BookingDto>booking;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
