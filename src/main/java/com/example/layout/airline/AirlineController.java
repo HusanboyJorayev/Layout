@@ -2,6 +2,7 @@ package com.example.layout.airline;
 
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,12 @@ public class AirlineController implements AirlineService<Integer, AirlineDto> {
     @DeleteMapping("/delete/{id}")
     public ApiResponse<AirlineDto> delete(@PathVariable(value = "id") Integer id) {
         return this.airlineServiceImpl.delete(id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<AirlineDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.airlineServiceImpl.getPage(page, count);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.example.layout.airport;
 
+import com.example.layout.airline.AirlineDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,12 @@ public class AirportController implements AirportService<Integer, AirportDto> {
     @DeleteMapping("/delete/{id}")
     public ApiResponse<AirportDto> delete(@PathVariable(value = "id") Integer id) {
         return this.airportServiceImpl.delete(id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<AirportDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.airportServiceImpl.getPage(page, count);
     }
 
     @Override

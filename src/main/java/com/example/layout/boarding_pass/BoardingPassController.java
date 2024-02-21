@@ -1,7 +1,9 @@
 package com.example.layout.boarding_pass;
 
+import com.example.layout.baggage_check.BaggageCheckDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,12 @@ public class BoardingPassController implements BoardingPassService<Integer, Boar
     @DeleteMapping("/delete/{id}")
     public ApiResponse<BoardingPassDto> delete(@PathVariable(value = "id") Integer id) {
         return this.boardingPassServiceImpl.delete(id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<BoardingPassDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.boardingPassServiceImpl.getPage(page, count);
     }
 
     @Override

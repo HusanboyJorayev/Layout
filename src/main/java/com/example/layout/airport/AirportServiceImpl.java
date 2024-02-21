@@ -1,7 +1,11 @@
 package com.example.layout.airport;
 
+import com.example.layout.airline.Airline;
+import com.example.layout.airline.AirlineDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -56,6 +60,22 @@ public class AirportServiceImpl implements AirportService<Integer, AirportDto> {
                         .code(-1)
                         .message("Airline is not found")
                         .build());
+    }
+
+    @Override
+    public ApiResponse<Page<AirportDto>> getPage(Integer page, Integer count) {
+        Page<Airport> airlinePage = this.airportRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<AirportDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<AirportDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.airportMapper::toDto))
+                .build();
     }
 
     @Override

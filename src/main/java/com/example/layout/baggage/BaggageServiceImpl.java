@@ -1,7 +1,11 @@
 package com.example.layout.baggage;
 
+import com.example.layout.airport.Airport;
+import com.example.layout.airport.AirportDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -56,6 +60,22 @@ public class BaggageServiceImpl implements BaggageService<Integer, BaggageDto> {
                         .code(-1)
                         .message("baggage is not found")
                         .build());
+    }
+
+    @Override
+    public ApiResponse<Page<BaggageDto>> getPage(Integer page, Integer count) {
+        Page<Baggage> airlinePage = this.baggageRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<BaggageDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<BaggageDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.baggageMapper::toDto))
+                .build();
     }
 
     @Override

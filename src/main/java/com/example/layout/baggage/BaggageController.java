@@ -1,7 +1,9 @@
 package com.example.layout.baggage;
 
+import com.example.layout.airport.AirportDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,12 @@ public class BaggageController implements BaggageService<Integer, BaggageDto> {
     @DeleteMapping("/delete/{id}")
     public ApiResponse<BaggageDto> delete(@PathVariable(value = "id") Integer id) {
         return this.baggageServiceImpl.delete(id);
+    }
+
+    @Override
+    @GetMapping("/getPage/{p}/{c}")
+    public ApiResponse<Page<BaggageDto>> getPage(@PathVariable(value = "p") Integer page, @PathVariable(value = "c") Integer count) {
+        return this.baggageServiceImpl.getPage(page, count);
     }
 
     @Override

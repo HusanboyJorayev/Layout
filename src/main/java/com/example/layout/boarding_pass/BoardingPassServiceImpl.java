@@ -1,7 +1,11 @@
 package com.example.layout.boarding_pass;
 
+import com.example.layout.baggage_check.BaggageCheck;
+import com.example.layout.baggage_check.BaggageCheckDto;
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -56,6 +60,21 @@ public class BoardingPassServiceImpl implements BoardingPassService<Integer, Boa
                         .code(-1)
                         .message("Boarding is not found")
                         .build());
+    }
+    @Override
+    public ApiResponse<Page<BoardingPassDto>> getPage(Integer page, Integer count) {
+        Page<BoardingPass> airlinePage = this.boardingPassRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<BoardingPassDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<BoardingPassDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.boardingPassMapper::toDto))
+                .build();
     }
 
     @Override

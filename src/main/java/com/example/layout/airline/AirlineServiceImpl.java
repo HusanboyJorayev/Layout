@@ -2,6 +2,8 @@ package com.example.layout.airline;
 
 import com.example.layout.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -60,6 +62,22 @@ public class AirlineServiceImpl implements AirlineService<Integer, AirlineDto> {
     }
 
     @Override
+    public ApiResponse<Page<AirlineDto>> getPage(Integer page, Integer count) {
+        Page<Airline> airlinePage = this.airlineRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));
+        if (airlinePage.isEmpty()) {
+            return ApiResponse.<Page<AirlineDto>>builder()
+                    .code(-1)
+                    .message("Airlines are not found")
+                    .build();
+        }
+        return ApiResponse.<Page<AirlineDto>>builder()
+                .success(true)
+                .message("Ok")
+                .data(airlinePage.map(this.airlineMapper::toDto))
+                .build();
+    }
+
+    @Override
     public ApiResponse<AirlineDto> update(AirlineDto airlineDto, Integer id) {
         return this.airlineRepository.findByIdAndDeletedAtIsNull(id)
                 .map(airline -> {
@@ -92,6 +110,7 @@ public class AirlineServiceImpl implements AirlineService<Integer, AirlineDto> {
                         .build());
 
     }
+
     @Override
     public ApiResponse<List<Integer>> getAllAirlinesCode() {
         return Optional.ofNullable(this.airlineRepository.getAllAirlinesCode().stream())
