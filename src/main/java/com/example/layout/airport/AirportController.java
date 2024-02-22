@@ -27,6 +27,18 @@ public class AirportController implements AirportService<Integer, AirportDto> {
     }
 
     @Override
+    @GetMapping("/getWithArrivingAirport/{id}")
+    public ApiResponse<AirportDto> getWithArrivingAirport(@PathVariable(value = "id") Integer id) {
+        return this.airportServiceImpl.getWithArrivingAirport(id);
+    }
+
+    @Override
+    @GetMapping("/getWithDepartingAirport/{id}")
+    public ApiResponse<AirportDto> getWithDepartingAirport(@PathVariable(value = "id") Integer id) {
+        return this.airportServiceImpl.getWithDepartingAirport(id);
+    }
+
+    @Override
     @DeleteMapping("/delete/{id}")
     public ApiResponse<AirportDto> delete(@PathVariable(value = "id") Integer id) {
         return this.airportServiceImpl.delete(id);

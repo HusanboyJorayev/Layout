@@ -2,6 +2,8 @@ package com.example.layout.passangers;
 
 import com.example.layout.baggage_check.BaggageCheck;
 import com.example.layout.booking.Booking;
+import com.example.layout.no_fly_list.NoFlyList;
+import com.example.layout.security_check.SecurityCheck;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
@@ -33,6 +35,13 @@ public class Passengers {
 
     @OneToMany(mappedBy = "passengerId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Booking>booking;
+
+    @OneToMany(mappedBy = "passengerId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<NoFlyList>noFlyList;
+
+    @OneToMany(mappedBy = "passengerId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<SecurityCheck>securityCheck;
+
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

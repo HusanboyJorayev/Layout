@@ -12,6 +12,7 @@ public interface AirlineService<Integer, AirlineDto> {
     ApiResponse<AirlineDto> create(AirlineDto dto);
 
     ApiResponse<AirlineDto> get(Integer id);
+    ApiResponse<AirlineDto> getWithFlights(Integer id);
     ApiResponse<AirlineDto> delete(Integer id);
     ApiResponse<Page<AirlineDto>>getPage(Integer page,Integer count);
 

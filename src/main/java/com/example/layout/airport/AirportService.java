@@ -12,9 +12,13 @@ public interface AirportService<Integer, AirportDto> {
 
     ApiResponse<AirportDto> get(Integer id);
 
-    ApiResponse<AirportDto> delete(Integer id);
-    ApiResponse<Page<AirportDto>>getPage(Integer page, Integer count);
+    ApiResponse<AirportDto> getWithArrivingAirport(Integer id);
 
+    ApiResponse<AirportDto> getWithDepartingAirport(Integer id);
+
+    ApiResponse<AirportDto> delete(Integer id);
+
+    ApiResponse<Page<AirportDto>> getPage(Integer page, Integer count);
 
     ApiResponse<AirportDto> update(AirportDto dto, Integer id);
 

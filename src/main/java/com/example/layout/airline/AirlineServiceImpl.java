@@ -44,6 +44,20 @@ public class AirlineServiceImpl implements AirlineService<Integer, AirlineDto> {
     }
 
     @Override
+    public ApiResponse<AirlineDto> getWithFlights(Integer id) {
+        return this.airlineRepository.findByIdAndDeletedAtIsNull(id)
+                .map(airline -> ApiResponse.<AirlineDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.airlineMapper.toDtoWithFlights(airline))
+                        .build())
+                .orElse(ApiResponse.<AirlineDto>builder()
+                        .code(-1)
+                        .message("Airline is not found")
+                        .build());
+    }
+
+    @Override
     public ApiResponse<AirlineDto> delete(Integer id) {
         return this.airlineRepository.findByIdAndDeletedAtIsNull(id)
                 .map(airline -> {

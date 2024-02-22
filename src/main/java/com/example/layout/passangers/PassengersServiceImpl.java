@@ -2,8 +2,6 @@ package com.example.layout.passangers;
 
 import com.example.layout.dto.ApiResponse;
 
-import com.example.layout.no_fly_list.NoFlyList;
-import com.example.layout.no_fly_list.NoFlyListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +36,48 @@ public class PassengersServiceImpl implements PassengersService<Integer, Passeng
                         .success(true)
                         .message("Ok")
                         .data(this.passengersMapper.toDto(passengers))
+                        .build())
+                .orElse(ApiResponse.<PassengersDto>builder()
+                        .code(-1)
+                        .message("flightManifest is not found")
+                        .build());
+    }
+
+    @Override
+    public ApiResponse<PassengersDto> getWithNoFlyList(Integer id) {
+        return this.passengersRepository.findByIdAndDeletedAtIsNull(id)
+                .map(passengers -> ApiResponse.<PassengersDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.passengersMapper.toDtoWithNoFlyList(passengers))
+                        .build())
+                .orElse(ApiResponse.<PassengersDto>builder()
+                        .code(-1)
+                        .message("flightManifest is not found")
+                        .build());
+    }
+
+    @Override
+    public ApiResponse<PassengersDto> getWithSecurityCheck(Integer id) {
+        return this.passengersRepository.findByIdAndDeletedAtIsNull(id)
+                .map(passengers -> ApiResponse.<PassengersDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.passengersMapper.toDtoWithSecurityCheck(passengers))
+                        .build())
+                .orElse(ApiResponse.<PassengersDto>builder()
+                        .code(-1)
+                        .message("flightManifest is not found")
+                        .build());
+    }
+
+    @Override
+    public ApiResponse<PassengersDto> getWithAllRelationShip(Integer id) {
+        return this.passengersRepository.findByIdAndDeletedAtIsNull(id)
+                .map(passengers -> ApiResponse.<PassengersDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.passengersMapper.toDtoWithAllRelationShip(passengers))
                         .build())
                 .orElse(ApiResponse.<PassengersDto>builder()
                         .code(-1)
@@ -109,6 +149,7 @@ public class PassengersServiceImpl implements PassengersService<Integer, Passeng
                         .message("flightManifest is not found")
                         .build());
     }
+
     @Override
     public ApiResponse<Page<PassengersDto>> getPage(Integer page, Integer count) {
         Page<Passengers> airlinePage = this.passengersRepository.findAllByDeletedAtIsNull(PageRequest.of(page, count));

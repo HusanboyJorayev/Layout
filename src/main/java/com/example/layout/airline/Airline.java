@@ -1,10 +1,12 @@
 package com.example.layout.airline;
 
+import com.example.layout.flights.Flights;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +22,9 @@ public class Airline {
     private String code;
     private Integer name;
     private String country;
+
+    @OneToMany(mappedBy = "airlineId",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Flights>flights;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -1,9 +1,12 @@
 package com.example.layout.airport;
 
+import com.example.layout.flights.Flights;
+import com.example.layout.flights.FlightsDto;
 import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +19,9 @@ public class AirportDto {
     private String state;
     private String country;
     private String city;
+
+    private List<FlightsDto> departingAirport;
+    private List<FlightsDto> arrivingAirport;
 
 
     private LocalDateTime createdAt;

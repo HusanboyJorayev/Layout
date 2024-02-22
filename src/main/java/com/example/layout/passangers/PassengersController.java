@@ -25,6 +25,21 @@ public class PassengersController implements PassengersService<Integer, Passenge
     public ApiResponse<PassengersDto> get(@PathVariable(value = "id") Integer id) {
         return this.passengersServiceImpl.get(id);
     }
+    @Override
+    @GetMapping("/getWithAllRelationShip/{id}")
+    public ApiResponse<PassengersDto> getWithAllRelationShip(@PathVariable(value = "id") Integer id) {
+        return this.passengersServiceImpl.getWithAllRelationShip(id);
+    }
+    @Override
+    @GetMapping("/getWithNoFlyList/{id}")
+    public ApiResponse<PassengersDto> getWithNoFlyList(@PathVariable(value = "id") Integer id) {
+        return this.passengersServiceImpl.getWithNoFlyList(id);
+    }
+    @Override
+    @GetMapping("/getWithSecurityCheck/{id}")
+    public ApiResponse<PassengersDto> getWithSecurityCheck(@PathVariable(value = "id") Integer id) {
+        return this.passengersServiceImpl.getWithSecurityCheck(id);
+    }
 
     @Override
     @GetMapping("/getWithBaggageCheck/{id}")

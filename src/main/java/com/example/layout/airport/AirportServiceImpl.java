@@ -43,6 +43,32 @@ public class AirportServiceImpl implements AirportService<Integer, AirportDto> {
                         .message("Airline is not found")
                         .build());
     }
+    @Override
+    public ApiResponse<AirportDto> getWithDepartingAirport(Integer id) {
+        return this.airportRepository.findByIdAndDeletedAtIsNull(id)
+                .map(airport -> ApiResponse.<AirportDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.airportMapper.toDtoWithDepartingAirport(airport))
+                        .build())
+                .orElse(ApiResponse.<AirportDto>builder()
+                        .code(-1)
+                        .message("Airline is not found")
+                        .build());
+    }
+    @Override
+    public ApiResponse<AirportDto> getWithArrivingAirport(Integer id) {
+        return this.airportRepository.findByIdAndDeletedAtIsNull(id)
+                .map(airport -> ApiResponse.<AirportDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.airportMapper.toDtoWithArrivingAirport(airport))
+                        .build())
+                .orElse(ApiResponse.<AirportDto>builder()
+                        .code(-1)
+                        .message("Airline is not found")
+                        .build());
+    }
 
     @Override
     public ApiResponse<AirportDto> delete(Integer id) {

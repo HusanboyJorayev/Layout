@@ -1,10 +1,13 @@
 package com.example.layout.airline;
 
+import com.example.layout.flights.Flights;
+import com.example.layout.flights.FlightsDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +20,8 @@ public class AirlineDto {
     private String code;
     private Integer name;
     private String country;
+
+    private List<FlightsDto> flights;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

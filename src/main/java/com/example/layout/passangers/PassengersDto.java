@@ -4,6 +4,11 @@ import com.example.layout.baggage_check.BaggageCheck;
 import com.example.layout.baggage_check.BaggageCheckDto;
 import com.example.layout.booking.Booking;
 import com.example.layout.booking.BookingDto;
+import com.example.layout.no_fly_list.NoFlyList;
+import com.example.layout.no_fly_list.NoFlyListDto;
+import com.example.layout.security_check.SecurityCheck;
+import com.example.layout.security_check.SecurityCheckDto;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PassengersDto {
     private Integer id;
     private String firstname;
@@ -25,6 +31,10 @@ public class PassengersDto {
 
     private List<BaggageCheckDto> baggageCheck;
     private List<BookingDto>booking;
+    private List<SecurityCheckDto>securityCheck;
+    private List<NoFlyListDto>noFlyList;
+
+
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
