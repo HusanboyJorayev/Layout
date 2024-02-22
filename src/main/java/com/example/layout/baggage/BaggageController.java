@@ -2,6 +2,7 @@ package com.example.layout.baggage;
 
 import com.example.layout.airport.AirportDto;
 import com.example.layout.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v/baggage")
+@Tag(name = "Baggage")
 public class BaggageController implements BaggageService<Integer, BaggageDto> {
     private final BaggageServiceImpl baggageServiceImpl;
 

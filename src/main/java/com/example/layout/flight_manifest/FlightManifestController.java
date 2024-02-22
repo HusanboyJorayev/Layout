@@ -3,6 +3,7 @@ package com.example.layout.flight_manifest;
 
 import com.example.layout.booking.BookingDto;
 import com.example.layout.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v/flightManifest")
+@Tag(name = "Flight_Manifest")
 public class FlightManifestController implements FlightManifestService<Integer, FlightManifestDto> {
     private final FlightManifestServiceImpl flightManifestServiceImpl;
 

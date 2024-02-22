@@ -2,6 +2,7 @@ package com.example.layout.boarding_pass;
 
 import com.example.layout.baggage_check.BaggageCheckDto;
 import com.example.layout.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v/boarding")
+@Tag(name = "Boarding_Pass")
 public class BoardingPassController implements BoardingPassService<Integer, BoardingPassDto> {
     private final BoardingPassServiceImpl boardingPassServiceImpl;
 

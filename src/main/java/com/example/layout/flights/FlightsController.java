@@ -1,6 +1,7 @@
 package com.example.layout.flights;
 
 import com.example.layout.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v/flights")
+@Tag(name = "Flights")
 public class FlightsController implements FlightService<Integer, FlightsDto> {
     private final FlightsServiceImpl flightsServiceImpl;
 
