@@ -27,6 +27,12 @@ public class BookingController implements BookingService<Integer, BookingDto> {
     }
 
     @Override
+    @GetMapping("/getWithAllRelationShip/{id}")
+    public ApiResponse<BookingDto> getWithAllRelationShip(@PathVariable(value = "id") Integer id) {
+        return this.bookingServiceImpl.getWithAllRelationShip(id);
+    }
+
+    @Override
     @GetMapping("/getWithBoardingPass/{id}")
     public ApiResponse<BookingDto> getWithBoardingPass(@PathVariable(value = "id") Integer id) {
         return this.bookingServiceImpl.getWithBoardingPass(id);

@@ -25,6 +25,11 @@ public abstract class BookingMapper {
     @Mapping(ignore = true, target = "boardingPass")
     public abstract BookingDto toDto(Booking booking);
 
+    @Mapping(target = "baggage", expression = "java(booking.getBaggage().stream().map(this.baggageMapper::toDto).toList())")
+    @Mapping(target = "baggageCheck",expression = "java(booking.getBaggageCheck().stream().map(this.baggageCheckMapper::toDto).toList())")
+    @Mapping(target = "boardingPass",expression = "java(booking.getBoardingPass().stream().map(this.boardingPassMapper::toDto).toList())")
+    public abstract BookingDto toDtoWithAllRelationShip(Booking booking);
+
 
     @Mapping(ignore = true, target = "baggage")
     @Mapping(ignore = true, target = "baggageCheck")

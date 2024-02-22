@@ -16,6 +16,10 @@ public abstract class AirportMapper {
     @Mapping(ignore = true, target = "arrivingAirport")
     public abstract AirportDto toDto(Airport airport);
 
+    @Mapping(target = "departingAirport", expression = "java(airport.getDepartingAirport().stream().map(this.flightsMapper::toDto).toList())")
+    @Mapping(target = "arrivingAirport", expression = "java(airport.getArrivingAirport().stream().map(this.flightsMapper::toDto).toList())")
+    public abstract AirportDto toDtoWithAllRelationShip(Airport airport);
+
 
     @Mapping(ignore = true, target = "departingAirport")
     @Mapping(target = "arrivingAirport", expression = "java(airport.getArrivingAirport().stream().map(this.flightsMapper::toDto).toList())")

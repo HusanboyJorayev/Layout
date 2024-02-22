@@ -43,6 +43,19 @@ public class BookingServiceImpl implements BookingService<Integer, BookingDto> {
                         .message("Boarding is not found")
                         .build());
     }
+    @Override
+    public ApiResponse<BookingDto> getWithAllRelationShip(Integer id) {
+        return this.bookingRepository.findByIdAndDeletedAtIsNull(id)
+                .map(booking -> ApiResponse.<BookingDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.bookingMapper.toDtoWithAllRelationShip(booking))
+                        .build())
+                .orElse(ApiResponse.<BookingDto>builder()
+                        .code(-1)
+                        .message("Boarding is not found")
+                        .build());
+    }
 
     @Override
     public ApiResponse<BookingDto> getWithBaggage(Integer id) {

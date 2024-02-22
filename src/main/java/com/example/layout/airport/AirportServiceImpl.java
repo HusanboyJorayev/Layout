@@ -44,6 +44,19 @@ public class AirportServiceImpl implements AirportService<Integer, AirportDto> {
                         .build());
     }
     @Override
+    public ApiResponse<AirportDto> getWithAllRelationShip(Integer id) {
+        return this.airportRepository.findByIdAndDeletedAtIsNull(id)
+                .map(airport -> ApiResponse.<AirportDto>builder()
+                        .success(true)
+                        .message("Ok")
+                        .data(this.airportMapper.toDtoWithAllRelationShip(airport))
+                        .build())
+                .orElse(ApiResponse.<AirportDto>builder()
+                        .code(-1)
+                        .message("Airline is not found")
+                        .build());
+    }
+    @Override
     public ApiResponse<AirportDto> getWithDepartingAirport(Integer id) {
         return this.airportRepository.findByIdAndDeletedAtIsNull(id)
                 .map(airport -> ApiResponse.<AirportDto>builder()

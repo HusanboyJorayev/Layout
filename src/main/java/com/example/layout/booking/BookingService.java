@@ -7,17 +7,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface BookingService<Integer,BookingDto> {
+public interface BookingService<Integer, BookingDto> {
     ApiResponse<BookingDto> create(BookingDto dto);
 
     ApiResponse<BookingDto> get(Integer id);
+
+    ApiResponse<BookingDto> getWithAllRelationShip(Integer id);
+
     ApiResponse<BookingDto> getWithBaggage(Integer id);
+
     ApiResponse<BookingDto> getWithBaggageCheck(Integer id);
+
     ApiResponse<BookingDto> getWithBoardingPass(Integer id);
 
     ApiResponse<BookingDto> delete(Integer id);
-    ApiResponse<Page<BookingDto>>getPage(Integer page, Integer count);
 
+    ApiResponse<Page<BookingDto>> getPage(Integer page, Integer count);
 
     ApiResponse<BookingDto> update(BookingDto dto, Integer id);
 

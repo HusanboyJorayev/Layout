@@ -11,6 +11,7 @@ public interface AirportService<Integer, AirportDto> {
     ApiResponse<AirportDto> create(AirportDto dto);
 
     ApiResponse<AirportDto> get(Integer id);
+    ApiResponse<AirportDto> getWithAllRelationShip(Integer id);
 
     ApiResponse<AirportDto> getWithArrivingAirport(Integer id);
 
